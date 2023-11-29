@@ -48,6 +48,42 @@ reg1.fit(Xtr, ytr)
 #Model Testing
 
 Y_p = reg.predict(X_te)
+yp = reg1.predict(Xte)
+#print(Y_te)
+#print(X_te)
+
+print(mean_squared_error(Y_te, Y_p))
+print(np.sqrt(mean_squared_error(Y_te, Y_p)))
+print(r2_score(Y_te, Y_p))
+
+print(mean_squared_error(yte, yp))
+print(np.sqrt(mean_squared_error(yte, yp)))
+print(r2_score(yte, yp))
+
+cv = cross_validate(reg1, Xte, yte, cv=4, return_estimator=True)
+print(cv)
+print(cv['test_score'])
+print(np.mean(cv['test_score']))
+
+###############################
+#Model Visualization
+
+plt.scatter(Y_te, Y_p, color='g')
+plt.plot([1, 2000], [1, 2000], '--')
+plt.xlabel('Real')
+plt.ylabel('Predicted')
+plt.xticks()
+plt.yticks()
+# Line of Best Fit
+m, b = np.polyfit(Y_te, Y_p, 1)
+plt.plot(Y_te, m * Y_te + b, color='r')
+
+plt.show()
+
+################################
+#Model Testing
+
+Y_p = reg.predict(X_te)
 yp= reg.predict(Xte)
 #print(Y_te)
 #print(X_te)
@@ -65,10 +101,6 @@ print(cv)
 print(cv['test_score'])
 print(np.mean(cv['test_score']))
 
-gtest_score = []
-#for i in range(len(cv_results['estimator'])):
-#  val_score.append(cv_results['estimator'][i].score(X_gtest, y_gtest))
-#sum(gtest_score) / len(gtest_score)
 ###############################
 #Model Visualization
 
