@@ -27,9 +27,6 @@ df0 = df0.sample(frac = 1, shuffle = True)
 train = df0.sample(frac = 0.8)
 test = df0.drop(train.index)
 
-# ohvidsten3@gatech.edu
-# 781-540-8503
-
 X_tr = train.loc[:, train.columns !='Su']
 Y_tr = train.loc[:, train.columns =='Su']
 
@@ -68,18 +65,18 @@ print(cv)
 print(cv['test_score'])
 print(np.mean(cv['test_score']))
 
-gtest_score = []
-for i in range(len(cv_results['estimator'])):
-  val_score.append(cv_results['estimator'][i].score(X_gtest, y_gtest))
-sum(gtest_score) / len(gtest_score)
 ###############################
 #Model Visualization
 
 plt.scatter(Y_te, Y_p, color = 'g')
 plt.plot([1,2000], [1,2000], '--')
-#plt.plot(Y_te, Y_p, color = 'b', linewidth = 0.5)
 plt.xlabel('Real')
 plt.ylabel('Predicted')
 plt.xticks()
 plt.yticks()
+# Line of Best Fit
+m, b = np.polyfit(Y_te, Y_p, 1)
+plt.plot(Y_te, m * Y_te + b, color='r')
+
+
 plt.show()
