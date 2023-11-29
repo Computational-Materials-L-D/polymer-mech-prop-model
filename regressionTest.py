@@ -65,6 +65,10 @@ print(cv)
 print(cv['test_score'])
 print(np.mean(cv['test_score']))
 
+gtest_score = []
+#for i in range(len(cv_results['estimator'])):
+#  val_score.append(cv_results['estimator'][i].score(X_gtest, y_gtest))
+#sum(gtest_score) / len(gtest_score)
 ###############################
 #Model Visualization
 
