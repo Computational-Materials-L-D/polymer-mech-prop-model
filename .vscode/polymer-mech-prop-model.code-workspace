@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "polymer-mech-prop-model",
+			"path": ".."
+		},
+		{
+			"name": "polymer-mech-prop-model",
+			"uri": "vscode-vfs://github/Computational-Materials-L-D/polymer-mech-prop-model"
+		}
+	],
+	"settings": {}
+}
