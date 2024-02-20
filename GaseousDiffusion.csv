@@ -1,0 +1,16 @@
+Substance A	Substance B	K (1/mK)	D (x 10^-5 cm²/s)
+Ar,N₂, 	293,	1.90
+CO2,	Benzene,	318,	0.72
+ CO2,	H₂,	273,	5.50
+ CO2,	N₂,	293,	1.60
+ CO2,	O₂,	273,	1.40
+ CO2,	Water vapor,	298,	1.60
+ H₂,	N₂,	273,	6.80
+ H₂,	O₂,	273,	7.00
+ O₂,	Ammonia	, 293,	2.50
+ O₂,	Benzene,	296,	0.39
+ O₂,	N₂,	273,	1.80
+O₂,	Water vapor, 298,	2.50
+Water vapor,Ar,	298,	2.40
+Water vapor,	Helium,	298,	9.20
+Water vapor,	Nitrogen,	298,	2.50

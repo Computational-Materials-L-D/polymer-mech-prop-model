@@ -23,7 +23,7 @@ df.to_csv('regRo_Su', index = False)
 df0 = pd.read_csv('regRo_Su')
 
 # sklearn -> train_test_split()
-df0 = df0.sample(frac = 1, shuffle = True)
+df0 = df0.sample(frac = 1)
 train = df0.sample(frac = 0.8)
 test = df0.drop(train.index)
 

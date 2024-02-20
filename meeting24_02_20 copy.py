@@ -1,4 +1,9 @@
+#Diffusion Theory
+
 #Regression - Linear - Polynomial - Lasso - Ridge - Poisson - Quantile - Logistic
+
+#Validation and Metrics
+
 #Coding
 import matplotlib.pyplot as plt
 import sklearn as skl
@@ -8,15 +13,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_validate
 import pandas as pd
 
-data = pd.read_csv('material.csv')
-#print(data)
+data = pd.read_csv('AqueousDiffusion.csv')
+x = [data['Molar Mass'], data['z']]
+y = data['D_i/10^-9 [m^2/s]']
 
-ro = data['Ro']
-e = data['E']
-data = [ro, e]
-
-model = linear_model.Ridge()
-model.fit(ro, e)
-
-Xtr, Xte, ytr, yte = train_test_split(data, test_size = 0.25)
-
+plt.scatter(x[0], y)
+plt.plot()
