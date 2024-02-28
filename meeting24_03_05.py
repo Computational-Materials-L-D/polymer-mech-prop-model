@@ -6,10 +6,9 @@
 
 #Coding
 import matplotlib.pyplot as plt
-import sklearn as sk
-from sklearn import linear_model
+from sklearn import linear_model, decomposition
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, mean_tweedie_deviance, PredictionErrorDisplay
-from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.model_selection import train_test_split, cross_validate, cross_val_score
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import numpy as np
@@ -17,23 +16,29 @@ import numpy as np
 #DATA EXTRACTION AND FORMATTING
 
 data = pd.read_csv('AqueousDiffusion.csv')
-x = [data['D'], data['z']]
+x = data.drop('Λ_eq', axis = 1)
+x = data.drop('Anion/Cation', axis = 1)
 y = data['Λ_eq']
 
-x[1] = pd.Series(map(lambda n: n**(2), x[1]))
-nx = x[0]*x[1]
+pca = decomposition.PCA(n_components=3)
+pca.fit(x)
+x = pca.transform(x)
 
-Xtr, Xte, ytr, yte = train_test_split(nx, y, test_size = 0.20, random_state=104)
+#x['z'] = pd.Series(map(lambda n: n**(2), x[1]))
+#nx = x[0]*x[1]
+
+print(x)
+#print(y)
+
+Xtr, Xte, ytr, yte = train_test_split(x, y, test_size = 0.8, random_state=104)
 #scaler = StandardScaler()
 #Xtr =scaler.fit_transform(Xtr)
 #ytr =scaler.fit_transform(ytr)
 
-#DATA CLEANING 
-
-Xtr = np.array(Xtr)
-Xte = np.array(Xte)
-Xtr = Xtr.reshape(-1, 1)
-Xte = Xte.reshape(-1, 1)
+#Xtr = np.array(Xtr)
+#Xte = np.array(Xte)
+#Xtr = Xtr.reshape(-1, 1)
+#Xte = Xte.reshape(-1, 1)
 #print(yte)
 yTe = np.array(yte)
 #print(yTe)
@@ -44,12 +49,18 @@ yTe = np.array(yte)
 #print(Xte)
 #print(yte)
 
-regRidge = linear_model.Lasso(alpha = 11) 
+
+
+#MODEL
+
+regRidge = linear_model.Lasso(alpha = 0.05) 
 regRidge.fit(Xtr, ytr)
 pred = regRidge.predict(Xte)
 print(pred)
 
 #VALIDATION
+
+
 
 #METRICS
 
@@ -59,7 +70,7 @@ print(pred)
 ##print(mse)
 #mae= mean_absolute_error(yte, pred)
 #print(mae)
-rms = mean_squared_error(yte, pred, squared = False)#
+rms = mean_squared_error(yte, pred, squared = False)
 print(rms)
 r2 = r2_score(yte, pred)
 print(r2)
