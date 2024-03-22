@@ -20,11 +20,15 @@ x = data
 
 
 print(x)
-print(y)
+#print(y)
 
-#pca = decomposition.PCA(n_components=3)
-#pca.fit(x)
-#x = pca.transform(x)
+
+
+pca = decomposition.PCA(n_components=3)
+pca.fit(x)
+x = pca.transform(x)
+#print(x)
+
 
 #x['z'] = pd.Series(map(lambda n: n**(2), x[1]))
 #nx = x[0]*x[1]
@@ -55,7 +59,7 @@ yTe = np.array(yte)
 
 #MODEL
 
-regLasso = linear_model.Lasso(alpha = 1) 
+regLasso = linear_model.Lasso(alpha = 0.67) 
 regLasso.fit(Xtr, ytr)
 pred = regLasso.predict(Xte)
 #print(pred)
@@ -68,10 +72,16 @@ for a in range(0, 1000):
     regLasso = linear_model.Lasso(alpha = (a+1)/100) 
     cvscore = cross_val_score(regLasso, Xtr, ytr, cv = 4, scoring = 'neg_root_mean_squared_error')
     cvs.append(cvscore.mean())
-#print(cvscore)
+    
+maxScore = max(cvs)
+bestAlpha = np.argmax(cvs)
+print(maxScore)
+print(bestAlpha)
+print(cvscore)
 
-plt.scatter(cvs)
-plt.show()
+#print(cvs)
+#plt.scatter(cvs)
+#plt.show()
 #cvpred = cross_val_predict(Xtr, ytr, cv = 4)
 
 #Take the best of the N models and use it directly
@@ -91,9 +101,9 @@ plt.show()
 #mae= mean_absolute_error(yte, pred)
 #print(mae)
 rms = mean_squared_error(yte, pred, squared = False)
-#print(rms)
+print(rms)
 r2 = r2_score(yte, pred)
-#print(r2)
+print(r2)
 #mtd = mean_tweedie_deviance(yte, pred, power = 2)
 #print(mtd)
 
@@ -105,9 +115,9 @@ r2 = r2_score(yte, pred)
 #fig = plt.figure(figsize =(5, 5))
 
 #disp = PredictionErrorDisplay(y_true = yTe,y_pred = pred)
-#disp = PredictionErrorDisplay.from_predictions(y_true = yTe,y_pred = pred, kind="actual_vs_predicted")
-#disp = PredictionErrorDisplay.from_predictions(y_true = yTe,y_pred = pred, kind="residual_vs_predicted")
-#disp.plot()
+disp = PredictionErrorDisplay.from_predictions(y_true = yTe,y_pred = pred, kind="actual_vs_predicted")
+disp = PredictionErrorDisplay.from_predictions(y_true = yTe,y_pred = pred, kind="residual_vs_predicted")
+disp.plot()
 
 #ax = fig.add_subplot(1, 1, 1)
 #ax.set_xscale('linear')
@@ -122,3 +132,4 @@ r2 = r2_score(yte, pred)
 # plt.scatter(nx, y, color = 'blue', marker = '.', s = 2)
 
 #plt.show()
+
